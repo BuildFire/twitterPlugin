@@ -16,8 +16,13 @@
             <div class="labels col-md-2 padding-right-zero pull-left">
                 <span>Twitter handler</span>
             </div>
-            <div class="col-md-10 pull-left">
+            <div class="col-md-8 pull-left">
                 <input id="url" name="twitterHandler" placeholder="https://www.twitter.com" type="text" class="form-control" ng-model="data.content.twitterHandler" required pattern="(https?\:\/\/)?(?:www\.)?twitter\.com\/.+">
+            </div>
+            <div class="col-md-2 pull-left padding-zero">
+                <button class="btn btn-success" ng-click="validateUrl()">
+                    Validate
+                </button>
             </div>
         </div>
 
@@ -33,7 +38,8 @@
         var twitterPluginApp = angular.module('twitterPlugin', []);
 
         twitterPluginApp.controller("twitterPluginCtrl", ["$scope", "$log", "$timeout", function ($scope, $log, $timeout) {
-            var timer = null;
+            var timer = null,
+                dataChanged = false;
 
             $scope.handlerEmpty = false;
             /*
@@ -52,50 +58,47 @@
                 }
 
                 /*
-                 * watch for changes in data and trigger the saveDataWithDelay function on change
+                 * watch for changes in data
                  * */
-                $scope.$watch('data', saveData, true);
+                $scope.$watch('data', function (newObj, oldObj) {
+                    if (angular.equals(newObj, oldObj) || newObj == undefined) {
+                        dataChanged = false;
+                    } else {
+                        dataChanged = true;
+                    }
+                }, true);
 
                 if (!$scope.$$phase && !$scope.$root.$$phase) {
                     $scope.$apply();
                 }
             });
 
-            /*
-             * Call the datastore to save the data object
-             */
-            var saveData = function (newObj, oldObj) {
-                // if the object did not change no need to save the data
-                if (angular.equals(newObj, oldObj) || newObj == undefined) {
+            $scope.validateUrl = function () {
+                if (!dataChanged) {
+                    console.warn("data didn't changed")
                     return;
                 }
-
-                if (timer) {
-                    $timeout.cancel(timer);
-                }
-
-                timer = $timeout(function () {
-                    // if the form has some invalid data do not save, in our case the user eneter invalid URL
-                    if ($scope.frmMain.$invalid) {
-                        $log.warn('invalid data, details will not be saved');
-                        $scope.handlerEmpty = true;
-                    } else {
-                        $scope.handlerEmpty = false;
-
-                        if (!/^https?\:\/\//.test(newObj.content.twitterHandler)) {
-                            newObj.content.twitterHandler = "https://" + newObj.content.twitterHandler;
-                        }
-
-                        buildfire.datastore.save(newObj, function (err, result) {
-                            if (err || !result) {
-                                $log.error('Error saving the widget details: ', err);
-                            }
-                            else {
-                                $log.info('Widget details saved');
-                            }
-                        });
+                var data = $scope.data;
+                // if the form has some invalid data do not save, in our case the user eneter invalid URL
+                if ($scope.frmMain.$invalid) {
+                    $log.warn('invalid data, details will not be saved');
+                    $scope.handlerEmpty = true;
+                } else {
+                    $scope.handlerEmpty = false;
+                    dataChanged = false;
+                    if (!/^https?\:\/\//.test(data.content.twitterHandler)) {
+                        data.content.twitterHandler = "https://" + data.content.twitterHandler;
                     }
-                }, 1000);
+
+                    buildfire.datastore.save(data, function (err, result) {
+                        if (err || !result) {
+                            $log.error('Error saving the widget details: ', err);
+                        }
+                        else {
+                            $log.info('Widget details saved');
+                        }
+                    });
+                }
             };
         }]);
     </script>
