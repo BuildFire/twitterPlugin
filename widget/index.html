@@ -47,19 +47,25 @@
         if (result && result.data && !angular.equals({}, result.data)) {
             if (result.data.content) {
                 content = result.data.content;
-                buildfire.spinner.hide();
-                buildfire.getContext(function (err, context) {
-                    if (context.device.platform != "web") {
-                        buildfire.navigation.openWindow(content.twitterHandler, "_blank");
-                        buildfire.navigation.goBack();
-                    } else {
-                        document.querySelector(".link-verified").style.display = "block";
-                    }
-                });
+            } else if(!result.id && !result.data.content) {
+                content = {
+                    twitterHandler: "https://twitter.com/katyperry"
+                }
             }
         } else {
-            buildfire.spinner.hide();
+            content = {
+                twitterHandler: "https://twitter.com/katyperry"
+            };
         }
+        buildfire.spinner.hide();
+        buildfire.getContext(function (err, context) {
+            if (context.device.platform != "web") {
+                buildfire.navigation.openWindow(content.twitterHandler, "_blank");
+                buildfire.navigation.goBack();
+            } else {
+                document.querySelector(".link-verified").style.display = "block";
+            }
+        });
     }
 
     /*
