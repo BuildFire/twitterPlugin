@@ -27,10 +27,11 @@
         </div>
     </div>
 
-    <div class="item clearfix row" ng-show="handlerEmpty">
+    <div class="item clearfix row">
         <div class="labels col-md-2 padding-right-zero pull-left"></div>
         <div class="col-md-10 pull-left">
-            <div class="alert alert-danger transition-half">Please enter a valid Twitter URL</div>
+            <p class="info padding-zero">Note: It is best to use secure websites (<strong>Https</strong>) some operating systems require it.</p>
+            <div class="alert alert-danger transition-half" ng-show="handlerEmpty">Please enter a valid Twitter URL</div>
         </div>
     </div>
 </div>
