@@ -61,7 +61,10 @@
         buildfire.getContext(function (err, context) {
             if (context.device.platform != "web") {
                 buildfire.navigation.openWindow(content.twitterHandler, "_blank");
-                buildfire.navigation.goBack();
+
+                setTimeout(function () {
+                    buildfire.navigation.goBack();
+                },200);
             } else {
                 document.querySelector(".link-verified").style.display = "block";
             }
