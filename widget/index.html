@@ -66,7 +66,10 @@
                     buildfire.navigation.goBack();
                 },200);
             } else {
-                document.querySelector(".link-verified").style.display = "block";
+                if( buildfire.context.liveMode=="0")//CP
+                    document.querySelector(".link-verified").style.display = "block";
+                else//HTML5 Version
+                    window.open(content.twitterHandler, "_blank");
             }
         });
     }
