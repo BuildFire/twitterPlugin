@@ -1,7 +1,7 @@
 {
   "author":"BuildFire"
   ,"pluginName":"Twitter"
-  ,"pluginDescription":"Simply enter your Twitter page URL to encourage your users to engage with you on social media.Related Topics:Photo,  Advertising"
+  ,"pluginDescription": "Integrate Twitter functionalities into your mobile app."
   ,"supportEmail":"support@buildfire.com"
   ,"supportSite":"http://learn.appdocumentation.com/plugin-tutorials/twitter-plugin-tutorial"
   ,"pluginIcon":"icon.png"
@@ -25,5 +25,31 @@
    ],
    "languages":[
       "en"
-   ]
+   ],
+   "media": [
+    {
+      "type": "image-resource",
+      "path": "1-Plugin.png"
+    },
+    {
+      "type": "image-resource",
+      "path": "2-Benefits.png"
+    },
+    {
+      "type": "image-resource",
+      "path": "3-Use-Cases.png"
+    },
+    {
+      "type": "image-resource",
+      "path": "4-Content-Tab.png"
+    },
+    {
+      "type": "image-resource",
+      "path": "5-Analytics-Tab.png"
+    },
+    {
+      "type": "youtube-video",
+      "path": "https://www.youtube.com/watch?v=9NATFOrFJ-U"
+    }
+  ]
 }
