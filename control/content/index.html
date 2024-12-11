@@ -14,7 +14,7 @@
 <div ng-form="frmMain">
     <div class="item clearfix row margin-bottom-fifteen">
         <div class="labels col-md-2 padding-right-zero pull-left">
-            <span>Twitter URL</span>
+            <span>X URL</span>
         </div>
         <div class="col-md-8 pull-left">
             <input id="url" name="twitterHandler" placeholder="https://www.twitter.com" type="text" class="form-control"
@@ -30,7 +30,7 @@
     <div class="item clearfix row" ng-show="handlerEmpty">
         <div class="labels col-md-2 padding-right-zero pull-left"></div>
         <div class="col-md-10 pull-left">
-            <div class="alert alert-danger transition-half">Please enter a valid Twitter URL</div>
+            <div class="alert alert-danger transition-half">Please enter a valid X URL</div>
         </div>
     </div>
 </div>
@@ -53,7 +53,7 @@
                 if (result && !result.id) {
                     $scope.data = {
                         content: {
-                            twitterHandler: "https://twitter.com/jimmyfallon"
+                            twitterHandler: "https://x.com/jimmyfallon"
                         }
                     };
                 }
